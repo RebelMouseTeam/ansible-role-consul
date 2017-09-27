@@ -48,13 +48,42 @@
   tags:
     - install
 
-- include: client.yml
-  when: not consul_server
+- assert:
+    that:
+      - 'consul_mode in ("client", "server")'
+
+- name: Gather facts
+  ec2_facts:
   tags:
     - configuration
 
-- include: server.yml
-  when: consul_server
+- set_fact:
+    consul_datacenter: "{{ ansible_ec2_placement_region }}"
   tags:
     - configuration
 
+- name: put consul configuration
+  template:
+    src: "{{ consul_mode }}.json.j2"
+    dest: /etc/consul.d/config.json
+    owner: root
+    group: root
+    mode: 0644
+  register: consul_conf
+  tags:
+    - configuration
+
+- name: put systemd configuration
+  template:
+    src: "{{ consul_mode }}.service.j2"
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable consul
+  service:
+    name: consul
+    enabled: yes
+  tags:
+    - configuration
