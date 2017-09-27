@@ -1,0 +1,13 @@
+[Unit]
+Description=consul agent
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Environment=GOMAXPROCS=2
+Restart=on-failure
+ExecStart=/bin/sh -c "{{ consul_dest }}/consul agent -bind=$$(curl http://169.254.169.254/latest/meta-data/local-ipv4) -config-dir={{ consul_conf_dir }}"
+ExecStop={{ consul_dest }}/consul leave
+
+[Install]
+WantedBy=multi-user.target

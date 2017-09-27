@@ -1,0 +1,36 @@
+---
+- name: Gather facts
+  ec2_facts:
+  tags:
+    - configuration
+
+- set_fact:
+    consul_datacenter: "{{ ansible_ec2_placement_region }}"
+  tags:
+    - configuration
+
+- name: put consul client configuration
+  template:
+    src: client.json.j2
+    dest: /etc/consul.d/client.json
+    owner: root
+    group: root
+    mode: 0644
+  register: consul_conf
+  tags:
+    - configuration
+
+- name: put systemd configuration
+  template:
+    src: client.service.j2
+    dest: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable consul
+  service:
+    name: consul
+    enabled: yes
+  tags:
+    - configuration

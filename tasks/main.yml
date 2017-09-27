@@ -1,0 +1,66 @@
+---
+- name: install dependencies
+  apt:
+    name:
+      - curl
+      - unzip
+    state: present
+    update_cache: yes
+  tags:
+    - install
+
+- name: install consul
+  unarchive:
+    src: "{{ consul_src }}"
+    dest: "{{ consul_dest }}"
+    mode: 0755
+    remote_src: yes
+  tags:
+    - install
+
+- name: ensure consul run directory
+  file:
+    path: "{{ consul_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  tags:
+    - install
+
+- name: ensure consul run data directory
+  file:
+    path: "{{ consul_data_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  tags:
+    - install
+
+- name: ensure consul config directory
+  file:
+    path: "{{ consul_conf_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  tags:
+    - install
+
+- assert:
+    that:
+      - "consul_server in (True, False)"
+  tags:
+    - configuration
+
+- include: client.yml
+  when: not consul_server
+  tags:
+    - configuration
+
+- include: server.yml
+  when: consul_server
+  tags:
+    - configuration
+
