@@ -48,12 +48,6 @@
   tags:
     - install
 
-- assert:
-    that:
-      - "consul_server in (True, False)"
-  tags:
-    - configuration
-
 - include: client.yml
   when: not consul_server
   tags:
