@@ -80,6 +80,16 @@
     owner: root
     group: root
     mode: 0644
+  when: ansible_distribution_release == 'xenial'
+
+- name: put upstart configuration
+  template:
+    src: "{{ consul_mode }}.upstart.conf.j2"
+    dest: /etc/init/consul.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution_release == 'trusty'
 
 - name: enable consul
   service:

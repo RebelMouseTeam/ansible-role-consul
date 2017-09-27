@@ -8,6 +8,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
+        - trusty
   galaxy_tags:
     - system
   dependencies: []
