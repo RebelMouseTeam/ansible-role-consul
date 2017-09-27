@@ -12,7 +12,7 @@
 - name: put consul client configuration
   template:
     src: client.json.j2
-    dest: /etc/consul.d/client.json
+    dest: /etc/consul.d/config.json
     owner: root
     group: root
     mode: 0644
