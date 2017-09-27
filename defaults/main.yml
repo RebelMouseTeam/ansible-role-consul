@@ -1,5 +1,6 @@
 ---
 consul_mode: "client"
+consul_dnsmasq: yes
 
 consul_src: https://releases.hashicorp.com/consul/0.9.3/consul_0.9.3_linux_amd64.zip
 consul_dest: /usr/local/bin

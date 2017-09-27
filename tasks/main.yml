@@ -6,6 +6,7 @@
       - unzip
     state: present
     update_cache: yes
+    cache_valid_time: 3600
   tags:
     - install
 
@@ -97,3 +98,8 @@
     enabled: yes
   tags:
     - configuration
+
+- include: dnsmasq.yml
+  when: consul_dnsmasq
+  tags:
+    - dnsmasq

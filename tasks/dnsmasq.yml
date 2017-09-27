@@ -1,0 +1,27 @@
+---
+- name: install dnsmasq
+  apt:
+    name: dnsmasq
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  tags:
+    - dnsmasq
+
+- name: put dnsmasq config
+  copy:
+    content: |
+      server=/consul/127.0.0.1#8600
+    dest: /etc/dnsmasq.d/10-consul
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - dnsmasq
+
+- name: enable dnsmasq
+  service:
+    name: dnsmasq
+    enabled: yes
+  tags:
+    - dnsmasq
