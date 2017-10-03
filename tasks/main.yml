@@ -95,9 +95,17 @@
 - name: enable consul
   service:
     name: consul
-    enabled: yes
+    enabled: "{{ consul_service_enabled }}"
   tags:
-    - configuration
+    - service
+
+- name: start consul
+  service:
+    name: consul
+    state: started
+  when: consul_service_started
+  tags:
+    - service
 
 - include: dnsmasq.yml
   when: consul_dnsmasq
