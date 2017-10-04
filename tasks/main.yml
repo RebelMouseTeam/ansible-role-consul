@@ -111,3 +111,11 @@
   when: consul_dnsmasq
   tags:
     - dnsmasq
+
+- name: start dnsmasq
+  service:
+    name: dnsmasq
+    state: started
+  when: consul_dnsmasq_started
+  tags:
+    - service
