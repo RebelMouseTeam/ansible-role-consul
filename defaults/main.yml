@@ -17,6 +17,7 @@ consul_conf_client_addr: 0.0.0.0
 consul_conf_bind_addr: 0.0.0.0
 consul_conf_bootstrap_expect: 3
 consul_conf_retry_join: ["provider=aws tag_key=Group tag_value=consul"]
+consul_conf_ui: 'True'
 consul_conf_enable_syslog: 'True'
 consul_conf_leave_on_terminate: 'False'
 consul_conf_skip_leave_on_interrupt: 'True'

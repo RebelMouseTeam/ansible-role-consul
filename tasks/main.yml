@@ -111,6 +111,7 @@
   service:
     name: consul
     enabled: "{{ consul_service_enabled }}"
+  when: lookup('env', 'MOLECULE_DRIVER_NAME') != 'docker'
   tags:
     - service
 
