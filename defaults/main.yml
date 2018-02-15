@@ -1,8 +1,8 @@
 ---
 consul_mode: "client"
-consul_dnsmasq: yes
-consul_service_enabled: no
-consul_service_started: no
+consul_dnsmasq: 'True'
+consul_service_enabled: 'False'
+consul_service_started: 'False'
 
 consul_src: https://releases.hashicorp.com/consul/0.9.3/consul_0.9.3_linux_amd64.zip
 consul_dest: /usr/local/bin
@@ -17,7 +17,7 @@ consul_conf_client_addr: 0.0.0.0
 consul_conf_bind_addr: 0.0.0.0
 consul_conf_bootstrap_expect: 3
 consul_conf_retry_join: ["provider=aws tag_key=Group tag_value=consul"]
-consul_conf_enable_syslog: yes
-consul_conf_leave_on_terminate: no
-consul_conf_skip_leave_on_interrupt: yes
-consul_conf_rejoin_after_leave: yes
+consul_conf_enable_syslog: 'True'
+consul_conf_leave_on_terminate: 'False'
+consul_conf_skip_leave_on_interrupt: 'True'
+consul_conf_rejoin_after_leave: 'True'

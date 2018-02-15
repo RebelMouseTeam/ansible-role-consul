@@ -3,7 +3,7 @@
   apt:
     name: dnsmasq
     state: present
-    update_cache: yes
+    update_cache: 'True'
     cache_valid_time: 3600
   tags:
     - dnsmasq
@@ -23,6 +23,6 @@
 - name: enable dnsmasq
   service:
     name: dnsmasq
-    enabled: yes
+    enabled: 'True'
   tags:
     - dnsmasq

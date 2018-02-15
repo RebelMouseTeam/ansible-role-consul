@@ -1,0 +1,4 @@
+molecule/default/.molecule/
+molecule/default/.cache/
+*.pyc
+__pycache__
