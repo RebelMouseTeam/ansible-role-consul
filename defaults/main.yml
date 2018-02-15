@@ -22,3 +22,7 @@ consul_conf_enable_syslog: yes
 consul_conf_leave_on_terminate: no
 consul_conf_skip_leave_on_interrupt: yes
 consul_conf_rejoin_after_leave: yes
+
+consul_conf_encrypt:
+consul_conf_encrypt_verify_incoming: yes
+consul_conf_encrypt_verify_outgoing: yes

@@ -2,6 +2,12 @@
     "server": false,
     "ui": false,
 
+    {% if consul_conf_encrypt %}
+    "encrypt": {{ consul_conf_encrypt | to_json }},
+    "encrypt_verify_incoming": {{ consul_conf_encrypt_verify_incoming | to_json }},
+    "encrypt_verify_outgoing": {{ consul_conf_encrypt_verify_outgoing | to_json }},
+    {% endif %}
+
     "data_dir": "{{ consul_data_dir }}",
     "pid_file": "{{ consul_data_dir }}/consul.pid",
     "datacenter": "{{ consul_datacenter }}",
