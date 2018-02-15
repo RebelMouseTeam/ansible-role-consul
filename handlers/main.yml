@@ -3,3 +3,10 @@
   service:
     name: dnsmasq
     state: restarted
+  when: lookup('env', 'MOLECULE_DRIVER_NAME') != 'docker'
+
+- name: restart consul
+  service:
+    name: consul
+    state: restarted
+  when: lookup('env', 'MOLECULE_DRIVER_NAME') != 'docker'
