@@ -18,6 +18,11 @@
   tags:
     - dnsmasq
 
+- name: bind dnsmasq to all interfaces
+  lineinfile:
+    path: /etc/dnsmasq.conf
+    line: 'bind-interfaces'
+
 - name: enable dnsmasq
   service:
     name: dnsmasq
