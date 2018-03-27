@@ -108,6 +108,11 @@
     mode: 0644
   when: ansible_distribution_release == 'trusty'
 
+- include: dnsmasq.yml
+  when: consul_dnsmasq
+  tags:
+    - dnsmasq
+
 - name: enable consul
   service:
     name: consul
@@ -116,15 +121,26 @@
   tags:
     - service
 
-- name: start consul
+- name: start/stop consul service
   service:
     name: consul
-    state: started
-  when: consul_service_started
+    state: '{{ "started" if consul_service_started else "stopped" }}'
+  when: lookup('env', 'MOLECULE_DRIVER_NAME') != 'docker'
   tags:
     - service
 
-- include: dnsmasq.yml
-  when: consul_dnsmasq
+- name: enable dnsmasq
+  service:
+    name: dnsmasq
+    enabled: "{{ consul_dnsmasq_service_enabled }}"
+  when: consul_dnsmasq and lookup('env', 'MOLECULE_DRIVER_NAME') != 'docker'
   tags:
-    - dnsmasq
+    - service
+
+- name: start/stop dnsmasq service
+  service:
+    name: dnsmasq
+    state: '{{ "started" if consul_dnsmasq_service_started else "stopped" }}'
+  when: consul_dnsmasq and lookup('env', 'MOLECULE_DRIVER_NAME') != 'docker'
+  tags:
+    - service
